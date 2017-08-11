@@ -52,6 +52,7 @@ class TriggerController extends Controller
     }
 
     /**
+     * Checking, let me know your current time, for mock up data
      * @param string $now
      */
     public function check($now)

@@ -28,6 +28,7 @@ class MobileController extends Controller
     const MESSAGE_OOS = 'oos';
 
     /**
+     * Send Message
      * @param $message
      */
     public function send($message)

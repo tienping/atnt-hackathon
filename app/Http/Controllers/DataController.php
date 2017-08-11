@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 class DataController extends Controller
 {
     /**
+     * Know the overdose and under dose
      * @return array
      */
     public function dose()
@@ -35,6 +36,7 @@ class DataController extends Controller
     }
 
     /**
+     * Punctuality for taking pill
      * @return array
      */
     public function all()
