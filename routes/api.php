@@ -15,4 +15,6 @@ use Illuminate\Http\Request;
 
 Route::post('/trigger', 'TriggerController@save');
 Route::get('/check/{minutes}', 'TriggerController@check');
+Route::get('/data/dose', 'DataController@dose');
+Route::get('/data/all', 'DataController@all');
 

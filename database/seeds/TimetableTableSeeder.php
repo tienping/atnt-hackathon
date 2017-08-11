@@ -13,7 +13,7 @@ class TimetableTableSeeder extends Seeder
     {
         DB::table('timetable')->insert([
             'pill_id' => '1',
-            'consume_time' => '1300',
+            'consume_time' => '1400',
             'qty' => '1',
         ]);
     }
