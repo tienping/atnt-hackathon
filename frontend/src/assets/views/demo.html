@@ -1,4 +1,4 @@
-<div class="content content-narrow" ng-click="demoCtrl.test();">
+<div class="content content-narrow">
     <div class="block">
         <div class="block-header">
             <ul class="block-options">
@@ -16,10 +16,10 @@
             <div class="js-flot-live" style="height: 360px;"></div>
         </div>
     </div>
-    <h1 class="blockdiv" ng-if="demoCtrl.showCountdown">
-        Alarm ring in: <span class="text-danger" ng-bind="demoCtrl.countdown"></span>
+    <h1 class="blockdiv" ng-if="showCountdown">
+        Alarm ring in: <span class="text-danger" ng-bind="countdown"></span>
     </h1>
-    <h1 class="blockdiv" ng-if="demoCtrl.showAlarm">
-        Text reminder deliver to caretaker in: <span class="text-danger" ng-bind="demoCtrl.countdown"></span>
+    <h1 class="blockdiv" ng-if="showAlarm">
+        Text reminder deliver to caretaker in: <span class="text-danger" ng-bind="countdown"></span>
     </h1>
 </div>

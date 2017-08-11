@@ -26,7 +26,9 @@
   },
   "main": "Gruntfile.js",
   "dependencies": {
-    "coffee-script": "^1.12.7"
+    "coffee-script": "^1.12.7",
+    "escodegen": "^1.8.1",
+    "pubnub": "^4.13.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

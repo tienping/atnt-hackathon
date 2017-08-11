@@ -84,7 +84,7 @@ module.exports = function (grunt) {
                     '<%= pathDev %>/<%= pathAssets %>/js/app.js',
                     '<%= pathDev %>/<%= pathAssets %>/js/directives.js',
                     '<%= pathDev %>/<%= pathAssets %>/js/controllers.js',
-                    '<%= pathDev %>/<%= pathAssets %>/js/smart-dose-controllers.js',
+                    '<%= pathDev %>/<%= pathAssets %>/js/smart-dose-controllers.js'
                 ],
                 dest: '<%= pathBuild %>/<%= pathAssets %>/js/oneui.min.js'
             }

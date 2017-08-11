@@ -1,16 +1,11 @@
 App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
     function ($scope, $localStorage, $window) {
-        var demo = this;
-
-        demo.showCountdown = true;
-        demo.showAlarm = true;
-        demo.countdown = 5;
-
-        demoCtrl.test = function () {
-            console.log(demoCtrl);
-        }
+        $scope.showCountdown = false;
+        $scope.showAlarm = false;
+        $scope.countdown = 0;
 
         var initChartsFlot = function() {
+            
             var dataLive = [];
             var flotLive       = jQuery('.js-flot-live');
             function getRandomData() {
@@ -32,7 +27,7 @@ App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
                 for (var i = 0; i < dataLive.length; ++i)
                     res.push([i, dataLive[i]]);
 
-                jQuery('.js-flot-live-info').html(y.toFixed(0) + '%');
+                // jQuery('.js-flot-live-info').html(y.toFixed(0) + '%');
 
                 return res;
             }
