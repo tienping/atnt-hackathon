@@ -83,7 +83,8 @@ module.exports = function (grunt) {
                     '<%= pathDev %>/<%= pathAssets %>/js/core/ngStorage.min.js',
                     '<%= pathDev %>/<%= pathAssets %>/js/app.js',
                     '<%= pathDev %>/<%= pathAssets %>/js/directives.js',
-                    '<%= pathDev %>/<%= pathAssets %>/js/controllers.js'
+                    '<%= pathDev %>/<%= pathAssets %>/js/controllers.js',
+                    '<%= pathDev %>/<%= pathAssets %>/js/smart-dose-controllers.js',
                 ],
                 dest: '<%= pathBuild %>/<%= pathAssets %>/js/oneui.min.js'
             }

@@ -16,11 +16,24 @@ var App = angular.module('app', [
 // Router configuration
 App.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/angularjs');
+        $urlRouterProvider.otherwise('/demo');
         $stateProvider
             .state('demo', {
                 url: '/demo',
-                templateUrl: 'assets/views/demo.html'
+                templateUrl: 'assets/views/demo.html',
+                controller: 'demoCtrl',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            insertBefore: '#css-bootstrap',
+                            serie: true,
+                            files: [
+                                'assets/js/plugins/chartjs/Chart.min.js',
+                                'assets/js/plugins/flot/jquery.flot.min.js',
+                            ]
+                        });
+                    }]
+                }
             })
             .state('report', {
                 url: '/report',
