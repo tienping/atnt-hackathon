@@ -81,6 +81,7 @@ module.exports = function (grunt) {
                     '<%= pathDev %>/<%= pathAssets %>/js/core/angular-ui-bootstrap-tpls.min.js',
                     '<%= pathDev %>/<%= pathAssets %>/js/core/ocLazyLoad.min.js',
                     '<%= pathDev %>/<%= pathAssets %>/js/core/ngStorage.min.js',
+                    '<%= pathDev %>/<%= pathAssets %>/js/core/pubnub.min.js',
                     '<%= pathDev %>/<%= pathAssets %>/js/app.js',
                     '<%= pathDev %>/<%= pathAssets %>/js/directives.js',
                     '<%= pathDev %>/<%= pathAssets %>/js/controllers.js',
@@ -156,5 +157,6 @@ module.exports = function (grunt) {
 
     // Register Tasks
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['clean:build', 'less:build', 'concat:build', 'uglify:build', 'copy:build', 'processhtml:build']);
+    grunt.registerTask('build', ['clean:build', 'less:build', 'concat:build', 'copy:build', 'processhtml:build']);
+    // grunt.registerTask('build', ['clean:build', 'less:build', 'concat:build', 'uglify:build', 'copy:build', 'processhtml:build']);
 };

@@ -4,8 +4,63 @@ App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
         $scope.showAlarm = false;
         $scope.countdown = 0;
 
+        $scope.testPubNub = _publish;
+        $scope.updateCountdown = function() {
+            if ($scope.countdown > 0) {
+                $scope.countdown -= 1;
+                setTimeout($scope.updateCountdown, 1000);
+            } else {
+                if ($scope.showCountdown) {
+                    $scope.showCountdown = false;
+                    $scope.showAlarm = true;
+                    $scope.countdown = 5;
+                    setTimeout($scope.updateCountdown, 1000);
+                } else {
+                    $scope.showAlarm = false;
+                }
+            }
+        }
+
+        var pubnub = new PubNub({
+            publishKey: "pub-c-61f8db65-a012-490c-b4b3-293f2e475f8f",
+            subscribeKey: "sub-c-8001e388-7eeb-11e7-a405-4e5e8b8b77ee"
+        });
+
+        function _publish(message, callback) {
+            pubnub.publish({
+                channel: 'libdzkmxx_channel',
+                message: message
+            }, function(status, response) {
+                // console.log(status, response);
+                if (callback) {
+                    callback(status, response);
+                }
+            });
+        }
+
+        pubnub.addListener({
+            status: function(statusEvent) {
+                if (statusEvent.category === "PNConnectedCategory") {}
+            },
+            message: function(response) {
+                if (response.message == 'Start counting') {
+                    $scope.showCountdown = true;
+                    $scope.countdown = 5;
+                    $scope.updateCountdown();
+                } else {
+                    alert(response.message);
+                }
+            },
+            presence: function(presenceEvent) {
+                // handle presence
+            }
+        })      
+
+        pubnub.subscribe({
+            channels: ['libdzkmxx_channel']
+        });
+
         var initChartsFlot = function() {
-            
             var dataLive = [];
             var flotLive       = jQuery('.js-flot-live');
             function getRandomData() {
