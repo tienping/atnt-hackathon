@@ -18,6 +18,14 @@ App.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/angularjs');
         $stateProvider
+            .state('demo', {
+                url: '/demo',
+                templateUrl: 'assets/views/demo.html'
+            })
+            .state('report', {
+                url: '/report',
+                templateUrl: 'assets/views/report.html'
+            })
             .state('angularjs', {
                 url: '/angularjs',
                 templateUrl: 'assets/views/ready_angularjs.html'

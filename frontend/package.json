@@ -1,6 +1,6 @@
 {
-  "name": "OneUI",
-  "version": "2.2.0",
+  "name": "smart-dose",
+  "version": "0.0.1",
   "description": "Admin Dashboard Template & UI Framework",
   "keywords": [
     "bootstrap",
@@ -23,5 +23,21 @@
     "grunt-contrib-uglify": "^1.0.1",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-processhtml": "^0.4.0"
-  }
+  },
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "coffee-script": "^1.12.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tienping/smart-dose.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tienping/smart-dose/issues"
+  },
+  "homepage": "https://github.com/tienping/smart-dose#readme"
 }
