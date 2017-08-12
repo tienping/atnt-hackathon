@@ -20,6 +20,8 @@ class Transaction extends Migration
             $table->string('last_consumed_datetime');
             $table->string('last_weight_value');
             $table->string('last_consumed_qty');
+            $table->string('weight_taken');
+            $table->string('qty_taken');
             $table->timestamps();
         });
     }

@@ -11,6 +11,7 @@ class PillTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('pill')->truncate();
         DB::table('pill')->insert([
             'name' => 'Chlorothiazide',
             'sku' => 'chlorothiazide@diuril',

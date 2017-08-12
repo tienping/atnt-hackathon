@@ -11,6 +11,7 @@ class TimetableTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('timetable')->truncate();
         DB::table('timetable')->insert([
             'pill_id' => '1',
             'consume_time' => '1400',
