@@ -11,6 +11,7 @@
 |
 */
 Route::get('/mobile', 'MobileController@send');
+Route::get('/take/{timestamp}/{value}', 'DataController@take');
 Route::get('/', function () {
     return view('welcome');
 });
