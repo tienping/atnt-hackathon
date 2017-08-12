@@ -16,14 +16,16 @@
             <div style="height: 330px;"><canvas class="js-chartjs-lines"></canvas></div>
         </div>
     </div>
-    <h1 class="blockdiv" ng-show="showCountdown">
-        Alarm ring in: <span class="text-danger" ng-bind="countdown"></span>
-    </h1>
-    <h1 class="blockdiv" ng-show="showAlarm">
-        Text reminder deliver to caretaker in: <span class="text-danger" ng-bind="countdown"></span>
-    </h1>
-    <h1 class="blockdiv" ng-show="msgSent">
-        Text reminder have been SENT
-    </h1>
-    <div class="buttun btn btn-success hidden" ng-click="testPubNub('Start counting')">Start counting</div>
+    <div class="hidden">
+        <h1 class="blockdiv" ng-show="showCountdown">
+            Alarm ring in: <span class="text-danger" ng-bind="countdown"></span>
+        </h1>
+        <h1 class="blockdiv" ng-show="showAlarm">
+            Text reminder deliver to caretaker in: <span class="text-danger" ng-bind="countdown"></span>
+        </h1>
+        <h1 class="blockdiv" ng-show="msgSent">
+            Text reminder have been SENT
+        </h1>
+        <div class="buttun btn btn-success" ng-click="testPubNub('Start counting')">Start counting</div>
+    </div>
 </div>

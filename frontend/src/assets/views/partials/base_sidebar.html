@@ -12,7 +12,7 @@
                 <button class="btn btn-link text-gray" type="button" data-uib-dropdown-toggle>
                     <i class="si si-drop"></i>
                 </button>
-                <ul class="dropdown-menu-right font-s13 sidebar-mini-hide" data-uib-dropdown-menu>
+                {#<ul class="dropdown-menu-right font-s13 sidebar-mini-hide" data-uib-dropdown-menu>
                     <li data-ng-class="{'active': ! oneui.settings.activeColorTheme}">
                         <a data-ng-click="oneui.settings.activeColorTheme = false" tabindex="-1" href="javascript:void(0)">
                             <i class="fa fa-circle text-default pull-right"></i> <span class="font-w600">Default</span>
@@ -43,7 +43,7 @@
                             <i class="fa fa-circle text-smooth pull-right"></i> <span class="font-w600">Smooth</span>
                         </a>
                     </li>
-                </ul>
+                </ul>#}
             </div>
             <a class="h5 text-white" data-ui-sref="dashboard" data-js-blur>
                 <i class="fa fa-circle-o-notch text-primary"></i> <span class="h4 font-w600 sidebar-mini-hide">ne</span>
@@ -63,137 +63,6 @@
                 <li>
                     <a data-ui-sref="report" data-ui-sref-active="active">
                         <i class="si si-doc"></i><span class="sidebar-mini-hide">Report</span>
-                    </a>
-                </li>
-                <li class="nav-main-heading"><span class="sidebar-mini-hide">Examples</span></li>
-                <li data-ng-class="{open: (path.indexOf('/ui/') > -1)}">
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-badge"></i><span class="sidebar-mini-hide">UI Elements</span></a>
-                    <ul>
-                        <li>
-                            <a data-ui-sref="uiActivity" data-ui-sref-active="active">Activity</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="uiTabs" data-ui-sref-active="active">Tabs</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="uiModalsTooltips" data-ui-sref-active="active">Modals &amp; Tooltips</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="uiColorThemes" data-ui-sref-active="active">Color Themes</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="uiBlocksDraggable" data-ui-sref-active="active">Draggable Blocks</a>
-                        </li>
-                        <li data-ng-class="{open: (path.indexOf('/ui/chat/') > -1)}">
-                            <a class="nav-submenu" data-toggle="nav-submenu" href="#">Chat</a>
-                            <ul>
-                                <li>
-                                    <a data-ui-sref="uiChatFull" data-ui-sref-active="active">Full</a>
-                                </li>
-                                <li>
-                                    <a data-ui-sref="uiChatFixed" data-ui-sref-active="active">Fixed</a>
-                                </li>
-                                <li>
-                                    <a data-ui-sref="uiChatPopup" data-ui-sref-active="active">Popup</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li data-ng-class="{open: (path.indexOf('/tables/') > -1)}">
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-grid"></i><span class="sidebar-mini-hide">Tables</span></a>
-                    <ul>
-                        <li>
-                            <a data-ui-sref="tablesTools" data-ui-sref-active="active">Tools</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="tablesDatatables" data-ui-sref-active="active">DataTables</a>
-                        </li>
-                    </ul>
-                </li>
-                <li data-ng-class="{open: (path.indexOf('/forms/') > -1)}">
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Forms</span></a>
-                    <ul>
-                        <li>
-                            <a data-ui-sref="formsPickersMore" data-ui-sref-active="active">Pickers &amp; More</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="formsEditors" data-ui-sref-active="active">Text Editors</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="formsValidation" data-ui-sref-active="active">Validation</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="formsWizard" data-ui-sref-active="active">Wizard</a>
-                        </li>
-                    </ul>
-                </li>
-                <li data-ng-class="{open: (path.indexOf('/components/') > -1)}">
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-wrench"></i><span class="sidebar-mini-hide">Components</span></a>
-                    <ul>
-                        <li>
-                            <a data-ui-sref="compCharts" data-ui-sref-active="active">Charts</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="compCalendar" data-ui-sref-active="active">Calendar</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="compSliders" data-ui-sref-active="active">Sliders</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="compScrolling" data-ui-sref-active="active">Scrolling</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="compSyntaxHighlighting" data-ui-sref-active="active">Syntax Highlighting</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="compRating" data-ui-sref-active="active">Rating</a>
-                        </li>
-                        <li>
-                            <a data-ui-sref="compTreeview" data-ui-sref-active="active">Tree View</a>
-                        </li>
-                        <li data-ng-class="{open: (path.indexOf('/components/maps/') > -1)}">
-                            <a class="nav-submenu" data-toggle="nav-submenu" href="#">Maps</a>
-                            <ul>
-                                <li>
-                                    <a data-ui-sref="compMapsGoogle" data-ui-sref-active="active">Google</a>
-                                </li>
-                                <li>
-                                    <a data-ui-sref="compMapsGoogleFull" data-ui-sref-active="active">Google Full</a>
-                                </li>
-                                <li>
-                                    <a data-ui-sref="compMapsVector" data-ui-sref-active="active">Vector</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li data-ng-class="{open: (path.indexOf('/components/gallery/') > -1)}">
-                            <a class="nav-submenu" data-toggle="nav-submenu" href="#">Gallery</a>
-                            <ul>
-                                <li>
-                                    <a data-ui-sref="compGallerySimple" data-ui-sref-active="active">Simple</a>
-                                </li>
-                                <li>
-                                    <a data-ui-sref="compGalleryAdvanced" data-ui-sref-active="active">Advanced</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-main-heading"><span class="sidebar-mini-hide">APIs</span></li>
-                <li>
-                    <a data-ui-sref="blocks" data-ui-sref-active="active">
-                        <i class="si si-frame"></i><span class="sidebar-mini-hide">Blocks</span>
-                    </a>
-                </li>
-                <li>
-                    <a data-ui-sref="layout" data-ui-sref-active="active">
-                        <i class="si si-magic-wand"></i><span class="sidebar-mini-hide">Layout</span>
-                    </a>
-                </li>
-                <li class="nav-main-heading"><span class="sidebar-mini-hide">Get Started</span></li>
-                <li>
-                    <a data-ui-sref="create" data-ui-sref-active="active">
-                        <i class="si si-power"></i><span class="sidebar-mini-hide">Create</span>
                     </a>
                 </li>
             </ul>
