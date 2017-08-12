@@ -37,7 +37,20 @@ App.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('report', {
                 url: '/report',
-                templateUrl: 'assets/views/report.html'
+                templateUrl: 'assets/views/report.html',
+                controller: 'reportCtrl',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            insertBefore: '#css-bootstrap',
+                            serie: true,
+                            files: [
+                                'assets/js/plugins/chartjs/Chart.min.js',
+                                'assets/js/plugins/flot/jquery.flot.min.js',
+                            ]
+                        });
+                    }]
+                }
             })
             .state('angularjs', {
                 url: '/angularjs',
