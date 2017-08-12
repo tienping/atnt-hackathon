@@ -134,48 +134,196 @@ App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
 
 
 
-App.controller('reportCtrl', ['$scope', '$localStorage', '$window',
-    function ($scope, $localStorage, $window) {
+App.controller('reportCtrl', ['$scope', '$localStorage', '$window', '$http',
+    function ($scope, $localStorage, $window, $http) {
         $scope.initChartsFlot = function() {
-            var chartLinesCon  = jQuery('.js-chartjs-lines')[0].getContext('2d');
+            $http({
+                method: 'GET',
+                url: 'https://6db159b0.ngrok.io/api/quantities'
+            }).then(function successCallback(response) {
+                var data = response.data;
+                var date = [];
+                var qty = [];
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
 
-            var chartLinesBarsRadarData = {
-                labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
-                datasets: [
+                    date.push(item.date);
+                    qty.push(item.count);
+                }
+
+                var chartLinesCon  = jQuery('.js-chartjs-lines')[0].getContext('2d');
+                var chartLinesBarsRadarData = {
+                    labels: date,
+                    datasets: [
+                        {
+                            label: 'Last Week',
+                            fillColor: 'rgba(102,0,51,.3)',
+                            strokeColor: 'rgba(102,0,51,1)',
+                            pointColor: 'rgba(102,0,51,1)',
+                            pointStrokeColor: '#fff',
+                            pointHighlightFill: '#fff',
+                            pointHighlightStroke: 'rgba(102,0,51,1)',
+                            data: qty
+                        }
+                    ]
+                };
+                var globalOptions = {
+                    scaleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                    scaleFontColor: '#999',
+                    scaleFontStyle: '600',
+                    tooltipTitleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                    tooltipCornerRadius: 3,
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scaleOverride: true,
+                    scaleSteps: 5,
+                    scaleStepWidth: 1,
+                    scaleStartValue: 0 
+                };
+                chartLines = new Chart(chartLinesCon).Line(chartLinesBarsRadarData, globalOptions);
+            }, function errorCallback(response) {
+                console.errr(response);
+            });
+
+            // ----------------------
+            $http({
+                method: 'GET',
+                url: 'https://6db159b0.ngrok.io/api/weights'
+            }).then(function successCallback(response) {
+                var flotLines      = jQuery('.js-flot-lines');
+                var dataEarnings    = [
+                                            [1, 900], [1, 1700], 
+                                            [2, 840], [2, 1720], 
+                                            [3, 900], [3, 1700], [3, 2100],
+                                            [4, 840], [4, 1650], 
+                                            [5, 920], [5, 1705], 
+                                            [6, 911], 
+                                            [7, 900], [7, 1722], 
+                                            [8, 906], [8, 1654]
+                                    ];
+                var dataMonths      = [[1, '1'], [2, '2'], [3, '3'], [4, '4'], [5, '6'], [6, '6'], [7, '7'], [8, '8']];
+                
+
+                jQuery.plot(flotLines,
+                    [
+                        {
+                            label: 'Earnings',
+                            data: dataEarnings,
+                            lines: {
+                                show: true,
+                                // fill: true,
+                                fillColor: {
+                                    colors: [{opacity: .7}, {opacity: .7}]
+                                }
+                            },
+                            points: {
+                                show: true,
+                                radius: 6
+                            }
+                        }
+                    ],
                     {
-                        label: 'Last Week',
-                        fillColor: 'rgba(220,220,220,.3)',
-                        strokeColor: 'rgba(220,220,220,1)',
-                        pointColor: 'rgba(220,220,220,1)',
-                        pointStrokeColor: '#fff',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [30, 32, 40, 45, 43, 38, 55]
-                    },
-                    {
-                        label: 'This Week',
-                        fillColor: 'rgba(171, 227, 125, .3)',
-                        strokeColor: 'rgba(171, 227, 125, 1)',
-                        pointColor: 'rgba(171, 227, 125, 1)',
-                        pointStrokeColor: '#fff',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(171, 227, 125, 1)',
-                        data: [15, 16, 20, 25, 23, 25, 32]
+                        colors: ['#abe37d', '#333333'],
+                        legend: {
+                            show: true,
+                            position: 'nw',
+                            backgroundOpacity: 0
+                        },
+                        grid: {
+                            borderWidth: 0,
+                            hoverable: true,
+                            clickable: true
+                        },
+                        yaxis: {
+                            tickColor: '#ffffff',
+                            ticks: 3
+                        },
+                        xaxis: {
+                            ticks: dataMonths,
+                            tickColor: '#f5f5f5'
+                        }
                     }
-                ]
-            };
+                );
 
-            var globalOptions = {
-                scaleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                scaleFontColor: '#999',
-                scaleFontStyle: '600',
-                tooltipTitleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-                tooltipCornerRadius: 3,
-                maintainAspectRatio: false,
-                responsive: true
-            };
+                var previousPoint = null, ttlabel = null;
+                flotLines.bind('plothover', function(event, pos, item) {
+                    if (item) {
+                        if (previousPoint !== item.dataIndex) {
+                            previousPoint = item.dataIndex;
 
-            chartLines = new Chart(chartLinesCon).Line(chartLinesBarsRadarData, globalOptions);
+                            jQuery('.js-flot-tooltip').remove();
+                            var x = item.datapoint[0], y = item.datapoint[1];
+
+                            if (item.seriesIndex === 0) {
+                                ttlabel = '$ <strong>' + y + '</strong>';
+                            } else if (item.seriesIndex === 1) {
+                                ttlabel = '<strong>' + y + '</strong> sales';
+                            } else {
+                                ttlabel = '<strong>' + y + '</strong> tickets';
+                            }
+
+                            jQuery('<div class="js-flot-tooltip flot-tooltip">' + ttlabel + '</div>')
+                                .css({top: item.pageY - 45, left: item.pageX + 5}).appendTo("body").show();
+                        }
+                    }
+                    else {
+                        jQuery('.js-flot-tooltip').remove();
+                        previousPoint = null;
+                    }
+                });
+            }, function errorCallback(response) {
+                console.errr(response);
+            });
+
+            // ------
+            $http({
+                method: 'GET',
+                url: 'https://6db159b0.ngrok.io/api/weights'
+            }).then(function successCallback(response) {
+                var data = response.data;
+                var date = [];
+                var last_weight_value = [];
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+
+                    date.push(item.date);
+                    last_weight_value.push(item.last_weight_value);
+                }
+
+
+                var weightChart  = jQuery('.js-weight-chart-lines')[0].getContext('2d');
+                var weightChartData = {
+                    labels: date,
+                    datasets: [
+                        {
+                            label: 'Weight',
+                            fillColor: 'rgba(171, 227, 125, .3)',
+                            strokeColor: 'rgba(171, 227, 125, 1)',
+                            pointColor: 'rgba(171, 227, 125, 1)',
+                            pointStrokeColor: '#fff',
+                            pointHighlightFill: '#fff',
+                            pointHighlightStroke: 'rgba(171, 227, 125, 1)',
+                            data: last_weight_value
+                        }
+                    ]
+                };
+                var globalOptions = {
+                    scaleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                    scaleFontColor: '#999',
+                    scaleFontStyle: '600',
+                    tooltipTitleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                    tooltipCornerRadius: 3,
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scaleOverride: true,
+                    scaleSteps: 100,
+                    scaleStepWidth: 10,
+                    scaleStartValue: 0 
+                };
+                weightChartLines = new Chart(weightChart).Line(weightChartData, globalOptions);
+            }, function errorCallback(response) {
+                console.errr(response);
+            });
         };
     }
 ]);
