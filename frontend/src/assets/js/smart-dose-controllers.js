@@ -2,6 +2,7 @@ App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
     function ($scope, $localStorage, $window) {
         $scope.showCountdown = false;
         $scope.showAlarm = false;
+        $scope.msgSent = false;
         $scope.countdown = 0;
 
         $scope.testPubNub = _publish;
@@ -13,12 +14,14 @@ App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
                 if ($scope.showCountdown) {
                     $scope.showCountdown = false;
                     $scope.showAlarm = true;
-                    $scope.countdown = 5;
+                    $scope.countdown = 10;
                     setTimeout($scope.updateCountdown, 1000);
                 } else {
                     $scope.showAlarm = false;
+                    $scope.msgSent = true;
                 }
             }
+            $scope.$apply();
         }
 
         var pubnub = new PubNub({

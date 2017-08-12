@@ -16,14 +16,14 @@
             <div class="js-flot-live" style="height: 360px;"></div>
         </div>
     </div>
-    showCountdown: {{showCountdown}}
-    showAlarm: {{showAlarm}}
-    countdown: {{countdown}}
     <h1 class="blockdiv" ng-show="showCountdown">
         Alarm ring in: <span class="text-danger" ng-bind="countdown"></span>
     </h1>
     <h1 class="blockdiv" ng-show="showAlarm">
         Text reminder deliver to caretaker in: <span class="text-danger" ng-bind="countdown"></span>
+    </h1>
+    <h1 class="blockdiv" ng-show="msgSent">
+        Text reminder have been SENT
     </h1>
     <div class="buttun btn btn-success hidden-xs-up" ng-click="testPubNub('Start counting')">Start counting</div>
 </div>
