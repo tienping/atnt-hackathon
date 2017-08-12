@@ -188,42 +188,41 @@ App.controller('reportCtrl', ['$scope', '$localStorage', '$window', '$http',
             // ----------------------
             $http({
                 method: 'GET',
-                url: 'https://6db159b0.ngrok.io/api/weights'
+                url: 'https://6db159b0.ngrok.io/api/times'
             }).then(function successCallback(response) {
+                var data = response.data;
+                var newData = [];
+                var date = [];
+                var counter = -1;
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+
+                    if (counter < 0 || item.date !== data[i-1].date) {
+                        counter += 1;
+                    }
+                    newData.push([counter, item.date], [counter, item.hour]);
+                    date.push(item.date);
+                }
+
                 var flotLines      = jQuery('.js-flot-lines');
-                var dataEarnings    = [
-                                            [1, 900], [1, 1700], 
-                                            [2, 840], [2, 1720], 
-                                            [3, 900], [3, 1700], [3, 2100],
-                                            [4, 840], [4, 1650], 
-                                            [5, 920], [5, 1705], 
-                                            [6, 911], 
-                                            [7, 900], [7, 1722], 
-                                            [8, 906], [8, 1654]
-                                    ];
-                var dataMonths      = [[1, '1'], [2, '2'], [3, '3'], [4, '4'], [5, '6'], [6, '6'], [7, '7'], [8, '8']];
-                
 
                 jQuery.plot(flotLines,
-                    [
-                        {
-                            label: 'Earnings',
-                            data: dataEarnings,
-                            lines: {
-                                show: true,
-                                // fill: true,
-                                fillColor: {
-                                    colors: [{opacity: .7}, {opacity: .7}]
-                                }
-                            },
-                            points: {
-                                show: true,
-                                radius: 6
+                    [{
+                        data: newData,
+                        lines: {
+                            show: true,
+                            // fill: true,
+                            fillColor: {
+                                colors: [{opacity: .7}, {opacity: .7}]
                             }
+                        },
+                        points: {
+                            show: true,
+                            radius: 6
                         }
-                    ],
+                    }],
                     {
-                        colors: ['#abe37d', '#333333'],
+                        colors: ['#660033', '#333333'],
                         legend: {
                             show: true,
                             position: 'nw',
@@ -239,7 +238,7 @@ App.controller('reportCtrl', ['$scope', '$localStorage', '$window', '$http',
                             ticks: 3
                         },
                         xaxis: {
-                            ticks: dataMonths,
+                            ticks: date,
                             tickColor: '#f5f5f5'
                         }
                     }
