@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/trigger', 'TriggerController@save');
+Route::get('/check/{minutes}', 'TriggerController@check');
+Route::get('/data/dose', 'DataController@dose');
+Route::get('/data/all', 'DataController@all');
+
