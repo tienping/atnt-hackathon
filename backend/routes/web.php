@@ -11,7 +11,12 @@
 |
 */
 Route::get('/mobile', 'MobileController@send');
-Route::get('/take/{timestamp}/{value}', 'DataController@take');
+Route::get('/weight/{timestamp}/{value}', 'DataController@weight');
+Route::get('/check/{timestamp}', 'DataController@check');
+Route::get('api/transactions', 'DataController@transactions');
+Route::get('api/quantities', 'DataController@quantities');
+Route::get('api/weights', 'DataController@weights');
+Route::get('api/times', 'DataController@times');
 Route::get('/', function () {
     return view('welcome');
 });
