@@ -1,5 +1,5 @@
-App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
-    function ($scope, $localStorage, $window) {
+App.controller('demoCtrl', ['$scope', '$localStorage', '$window', '$http',
+    function ($scope, $localStorage, $window, $http) {
         $scope.showCountdown = false;
         $scope.showAlarm = false;
         $scope.msgSent = false;
@@ -65,69 +65,53 @@ App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
         });
 
         function initChartsFlot() {
-            var dataLive = [];
-            var flotLive       = jQuery('.js-flot-live');
-            function getRandomData() {
-                if (dataLive.length > 0) {
-                    dataLive = dataLive.slice(1);
+            $http({
+                method: 'GET',
+                url: 'https://6db159b0.ngrok.io/api/quantities'
+            }).then(function successCallback(response) {
+                var data = response.data;
+                var date = [];
+                var qty = [];
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+
+                    date.push(item.date);
+                    qty.push(item.count);
                 }
 
-                while (dataLive.length < 300) {
-                    var prev = dataLive.length > 0 ? dataLive[dataLive.length - 1] : 50;
-                    var y = prev + Math.random() * 10 - 5;
-                    if (y < 0)
-                        y = 0;
-                    if (y > 100)
-                        y = 100;
-                    dataLive.push(y);
-                }
-
-                var res = [];
-                for (var i = 0; i < dataLive.length; ++i)
-                    res.push([i, dataLive[i]]);
-
-                // jQuery('.js-flot-live-info').html(y.toFixed(0) + '%');
-
-                return res;
-            }
-
-            function updateChartLive() { // Update live chart
-                chartLive.setData([getRandomData()]);
-                chartLive.draw();
-                setTimeout(updateChartLive, 70);
-            }
-
-            var chartLive = jQuery.plot(flotLive, // Init live chart
-                [{ data: getRandomData() }],
-                {
-                    series: {
-                        shadowSize: 0
-                    },
-                    lines: {
-                        show: true,
-                        lineWidth: 2,
-                        fill: true,
-                        fillColor: {
-                            colors: [{opacity: .2}, {opacity: .2}]
+                var chartLinesCon  = jQuery('.js-chartjs-lines')[0].getContext('2d');
+                var chartLinesBarsRadarData = {
+                    labels: date,
+                    datasets: [
+                        {
+                            label: 'Last Week',
+                            fillColor: 'rgba(102,0,51,.3)',
+                            strokeColor: 'rgba(102,0,51,1)',
+                            pointColor: 'rgba(102,0,51,1)',
+                            pointStrokeColor: '#fff',
+                            pointHighlightFill: '#fff',
+                            pointHighlightStroke: 'rgba(102,0,51,1)',
+                            data: qty
                         }
-                    },
-                    colors: ['#75b0eb'],
-                    grid: {
-                        borderWidth: 0,
-                        color: '#aaaaaa'
-                    },
-                    yaxis: {
-                        show: true,
-                        min: 0,
-                        max: 110
-                    },
-                    xaxis: {
-                        show: false
-                    }
-                }
-            );
-
-            // updateChartLive(); // Start getting new data
+                    ]
+                };
+                var globalOptions = {
+                    scaleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                    scaleFontColor: '#999',
+                    scaleFontStyle: '600',
+                    tooltipTitleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                    tooltipCornerRadius: 3,
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scaleOverride: true,
+                    scaleSteps: 5,
+                    scaleStepWidth: 1,
+                    scaleStartValue: 0 
+                };
+                chartLines = new Chart(chartLinesCon).Line(chartLinesBarsRadarData, globalOptions);
+            }, function errorCallback(response) {
+                console.errr(response);
+            });
         };
     }
 ]);
@@ -296,9 +280,9 @@ App.controller('reportCtrl', ['$scope', '$localStorage', '$window', '$http',
                     datasets: [
                         {
                             label: 'Weight',
-                            fillColor: 'rgba(171, 227, 125, .3)',
-                            strokeColor: 'rgba(171, 227, 125, 1)',
-                            pointColor: 'rgba(171, 227, 125, 1)',
+                            fillColor: 'rgba(102, 0, 51, .3)',
+                            strokeColor: 'rgba(102, 0, 51, 1)',
+                            pointColor: 'rgba(102, 0, 51, 1)',
                             pointStrokeColor: '#fff',
                             pointHighlightFill: '#fff',
                             pointHighlightStroke: 'rgba(171, 227, 125, 1)',
