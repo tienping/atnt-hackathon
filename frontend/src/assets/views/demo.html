@@ -1,4 +1,4 @@
-<div class="content content-narrow">
+<div class="content content-narrow" ng-init="initChartsFlot();">
     <div class="block">
         <div class="block-header">
             <ul class="block-options">
@@ -25,5 +25,5 @@
     <h1 class="blockdiv" ng-show="msgSent">
         Text reminder have been SENT
     </h1>
-    <div class="buttun btn btn-success hidden-xs-up" ng-click="testPubNub('Start counting')">Start counting</div>
+    <div class="buttun btn btn-success hidden" ng-click="testPubNub('Start counting')">Start counting</div>
 </div>

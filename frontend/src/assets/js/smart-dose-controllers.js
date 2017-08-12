@@ -6,6 +6,7 @@ App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
         $scope.countdown = 0;
 
         $scope.testPubNub = _publish;
+        $scope.initChartsFlot = initChartsFlot;
         $scope.updateCountdown = function() {
             if ($scope.countdown > 0) {
                 $scope.countdown -= 1;
@@ -63,7 +64,7 @@ App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
             channels: ['libdzkmxx_channel']
         });
 
-        var initChartsFlot = function() {
+        function initChartsFlot() {
             var dataLive = [];
             var flotLive       = jQuery('.js-flot-live');
             function getRandomData() {
@@ -128,7 +129,53 @@ App.controller('demoCtrl', ['$scope', '$localStorage', '$window',
 
             // updateChartLive(); // Start getting new data
         };
-        
-        initChartsFlot();
+    }
+]);
+
+
+
+App.controller('reportCtrl', ['$scope', '$localStorage', '$window',
+    function ($scope, $localStorage, $window) {
+        $scope.initChartsFlot = function() {
+            var chartLinesCon  = jQuery('.js-chartjs-lines')[0].getContext('2d');
+
+            var chartLinesBarsRadarData = {
+                labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+                datasets: [
+                    {
+                        label: 'Last Week',
+                        fillColor: 'rgba(220,220,220,.3)',
+                        strokeColor: 'rgba(220,220,220,1)',
+                        pointColor: 'rgba(220,220,220,1)',
+                        pointStrokeColor: '#fff',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: [30, 32, 40, 45, 43, 38, 55]
+                    },
+                    {
+                        label: 'This Week',
+                        fillColor: 'rgba(171, 227, 125, .3)',
+                        strokeColor: 'rgba(171, 227, 125, 1)',
+                        pointColor: 'rgba(171, 227, 125, 1)',
+                        pointStrokeColor: '#fff',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(171, 227, 125, 1)',
+                        data: [15, 16, 20, 25, 23, 25, 32]
+                    }
+                ]
+            };
+
+            var globalOptions = {
+                scaleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                scaleFontColor: '#999',
+                scaleFontStyle: '600',
+                tooltipTitleFontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+                tooltipCornerRadius: 3,
+                maintainAspectRatio: false,
+                responsive: true
+            };
+
+            chartLines = new Chart(chartLinesCon).Line(chartLinesBarsRadarData, globalOptions);
+        };
     }
 ]);
