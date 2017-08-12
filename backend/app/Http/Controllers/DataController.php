@@ -134,16 +134,24 @@ class DataController extends Controller
 
     public function weights()
     {
+        // return response()->json(
+        //         DB::table('transaction')
+        //         ->select(DB::raw('DATE(last_consumed_datetime) as date'), DB::raw('sum(weight_taken) as weight_taken'))
+        //         ->groupBy('date')->get());
+
         return response()->json(
                 DB::table('transaction')
-                ->select(DB::raw('DATE(last_consumed_datetime) as date'), DB::raw('sum(weight_taken) as weight_taken'))
+                ->select(DB::raw('DATE(last_consumed_datetime) as date'), DB::raw('min(last_weight_value) as last_weight_value'))
                 ->groupBy('date')->get());
     }
 
-    // public function times()
-    // {
-    //     return response()->json(
-    //             DB::table('transaction')
-    //             ->select(DB::raw('EXTRACT(DAY_HOUR FROM last_consumed_datetime) as day_hour'), DB::raw('sum(weight_taken) as weight_taken'))->get());
-    // }   
+    public function times()
+    {
+        return response()->json(
+                DB::table('transaction')
+                ->select(DB::raw('DATE(last_consumed_datetime) as date'), DB::raw('EXTRACT(HOUR_MINUTE FROM last_consumed_datetime) as hour'))
+                ->groupBy('date')
+                ->groupBy('hour')
+                ->get());
+    }   
 }
