@@ -19,13 +19,13 @@ class MobileController extends Controller
     /*
     * Your phone number, including country code, i.e. +44123123123 in this case:
     */
-    const phoneNumber = '60167785310';
+    const phoneNumber = '60177670570';
     const url = 'https://bulksms.vsms.net/eapi/submission/send_sms/2/2.0';
 
-    const MESSAGE_TAKEN = 'pill already taken';
-    const MESSAGE_REMINDER = 'xxxxx';
-    const MESSAGE_RESTOCK = 'less than 20 percentage';
-    const MESSAGE_OOS = 'oos';
+    const MESSAGE_TAKEN = 'PILL TAKEN';
+    const MESSAGE_REMINDER = 'PILL NO TAKEN';
+    const MESSAGE_RESTOCK = 'PILL NEEDS REPLENISHMENT';
+    const MESSAGE_OOS = 'PILL OOS';
 
     /**
      * Send Message
@@ -34,13 +34,7 @@ class MobileController extends Controller
     public function send($message)
     {
         $post_body = $this->unicode_sms(self::username, self::password, $message, self::phoneNumber );
-        $result = $this->send_message( $post_body, self::url);
-        if( $result['success'] ) {
-            print_r( $this->formatted_server_response( $result ) );
-        }
-        else {
-            print_r( $this->formatted_server_response( $result ) );
-        }
+        $this->send_message( $post_body, self::url);
     }
 
     /**

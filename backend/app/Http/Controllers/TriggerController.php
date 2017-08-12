@@ -36,18 +36,18 @@ class TriggerController extends Controller
 
         //TODO: Hide the message first
 
-//        $controller = new MobileController();
-//        $controller->send(MobileController::MESSAGE_TAKEN);
+        $controller = new MobileController();
+        $controller->send(MobileController::MESSAGE_TAKEN);
 
         //TODO: if got time, notify when overdose
         $notifiQty = $pill->qty * 0.2;
         if ($notifiQty >= $model->last_consumed_qty) {
             echo 'restock';
-//            $controller->send(MobileController::MESSAGE_RESTOCK);
+            $controller->send(MobileController::MESSAGE_RESTOCK);
         }
         if ($model->last_consumed_qty == 0) {
             echo 'oos';
-//            $controller->send(MobileController::MESSAGE_OOS);
+            $controller->send(MobileController::MESSAGE_OOS);
         }
     }
 
@@ -66,12 +66,16 @@ class TriggerController extends Controller
 
         if ($nowTimestamp >= $timetableTimestamp) {
             if ($different >= 5 && $different <= 8) {
-                echo 'soft alert';
+                echo '[10:10am]';
+                echo 'Content weight remains...';
+                echo 'Sound and light alert triggered...';
             } elseif ($different >= 15 && $different <= 20) {
-                echo 'hard alert';
-                //TODO: only have 5 credits dont waste!!!
-//                $controller = new MobileController();
-//                $controller->send(MobileController::MESSAGE_REMINDER);
+                $controller = new MobileController();
+                $controller->send(MobileController::MESSAGE_REMINDER);
+                echo '[10:20am]';
+                echo 'Content weight remains...';
+                echo 'SMS reminder alert triggered...';
+                echo '';
             }
         }
     }
